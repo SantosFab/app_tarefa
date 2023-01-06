@@ -1,8 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
-import 'package:app_tarefa/resources/Assignment/to_do_assignment.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
+import 'package:app_tarefa/resources/Assignment/to_do_assignment.dart';
 
 class ToDo {
   final String _uid;
@@ -51,7 +51,8 @@ class ToDo {
   String get uid => _uid;
   String get task => _task;
   bool get conclused => _isConclused;
-  String get timeSave {
+  DateTime get timeSaveIsDateTime => _timeSave;
+  String get timeSaveIsString {
     return DateFormat("HH:mm dd-MM-yy")
         .format(DateTime.parse(_timeSave.toString()).toLocal());
   }
