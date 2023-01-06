@@ -36,15 +36,14 @@ class LoginFirebaseAuth {
   Future<User?> createUserWithEmailAndPassWord({
     required String email,
     required String password,
-    String name = 'preciso definir isso ainda',
+    required String name,
   }) async {
     try {
       UserCredential userCredential = await auth.createUserWithEmailAndPassword(
           email: email, password: password);
       User? user = userCredential.user;
       if (user != null) {
-        user.updateDisplayName(name);
-
+        user.updateDisplayName(name[0].toUpperCase() + name.substring(1));
         return user;
       }
       return null;
@@ -55,17 +54,25 @@ class LoginFirebaseAuth {
 
   Future<User?> signInFirebaseWithEmailAndPassWord(
       {required String email, required String password}) async {
-    UserCredential userCredential =
-        await auth.signInWithEmailAndPassword(email: email, password: password);
+    try {
+      UserCredential userCredential = await auth.signInWithEmailAndPassword(
+          email: email, password: password);
 
-    return userCredential.user;
+      return userCredential.user;
+    } catch (e) {
+      return null;
+    }
   }
 
   User? hasUser() {
-    if (user != null) {
-      return user;
+    try {
+      if (user != null) {
+        return user;
+      }
+      return null;
+    } catch (e) {
+      return null;
     }
-    return null;
   }
 
   String idOfUser() {

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 Future _baseShowDialog(
   context, {
   required Widget widget,
-  double height = 250,
+  double height = 320,
 }) {
   return showDialog(
     barrierDismissible: true,
@@ -30,6 +30,7 @@ Future _baseShowDialog(
 
 Future showdialogCreateUser(
   context, {
+  TextEditingController? controllerCreateNewUserName,
   TextEditingController? controllerCreateNewUserEmail,
   TextEditingController? controllerCreateNewUserPassWord,
   void Function()? onPressedOfCreate,
@@ -45,6 +46,14 @@ Future showdialogCreateUser(
           'Para realizar o cadastro, preenchar, logo abaixo, o seu email e senha.',
           textAlign: TextAlign.center,
           style: CustomStyleText.textCreateUser,
+        ),
+        Material(
+          child: BoxTextFrom(
+            label: 'Nome e Sobrenome',
+            hintText: 'José Santos',
+            textInputType: TextInputType.name,
+            controller: controllerCreateNewUserName,
+          ),
         ),
         Material(
           child: BoxTextFrom(

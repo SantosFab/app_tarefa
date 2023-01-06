@@ -1,3 +1,4 @@
+import 'package:app_tarefa/model/to_do.dart';
 import 'package:app_tarefa/resources/Assignment/to_do_assignment.dart';
 
 class ReposirotyToDoAssignment {
@@ -25,6 +26,14 @@ class ReposirotyToDoAssignment {
         assignment: task,
       );
 
-  void toDoDelete({required String uid}) =>
-      _toDoAssignment.toDoDelete(uid: uid, collectionPath: collectionPath);
+  void toDoDelete({required String uid}) => _toDoAssignment.toDoDelete(
+        uid: uid,
+        collectionPath: collectionPath,
+      );
+
+  void deleteAll({required List<ToDo> listOfToDo}) =>
+      _toDoAssignment.toDoDeleteAll(
+        collectionPath: collectionPath,
+        listOfToDo: listOfToDo,
+      );
 }

@@ -20,19 +20,18 @@ class _MyHomePageState extends State<MyHomePage> {
   late final RepositoryLoginFireBaseAuth _repositoryLoginFireBaseAuth;
   late final TextEditingController? _controllerEmail;
   late final TextEditingController? _controllerPassWord;
+  late final TextEditingController? _controllerCreateNewUserName;
   late final TextEditingController? _controllerCreateNewUserEmail;
   late final TextEditingController? _controllerCreateNewUserPassWord;
   @override
   void initState() {
     super.initState();
-
     _repositoryLoginFireBaseAuth = RepositoryLoginFireBaseAuth();
-    _controllerEmail = TextEditingController()
-      ..text = 'fabriciosantos.dev@gmail.com';
-    _controllerPassWord = TextEditingController()..text = '123456';
-    _controllerCreateNewUserEmail = TextEditingController()
-      ..text = 'fabriciosantos.dev@gmail.com';
-    _controllerCreateNewUserPassWord = TextEditingController()..text = '123456';
+    _controllerEmail = TextEditingController();
+    _controllerPassWord = TextEditingController();
+    _controllerCreateNewUserName = TextEditingController();
+    _controllerCreateNewUserEmail = TextEditingController();
+    _controllerCreateNewUserPassWord = TextEditingController();
     User? user = _repositoryLoginFireBaseAuth.hasUser();
     if (user != null) {
       Timer.run(() {
@@ -88,6 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   onPressed: () {
                     showdialogCreateUser(
                       context,
+                      controllerCreateNewUserName: _controllerCreateNewUserName,
                       controllerCreateNewUserEmail:
                           _controllerCreateNewUserEmail,
                       controllerCreateNewUserPassWord:
@@ -97,7 +97,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             .createNewUserEmailAndPassWord(
                           email: _controllerCreateNewUserEmail!.text,
                           password: _controllerCreateNewUserPassWord!.text,
-                          name: 'fabricio',
+                          name: _controllerCreateNewUserName!.text,
                         )
                             .then(
                           (user) {

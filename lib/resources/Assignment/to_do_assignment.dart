@@ -1,3 +1,4 @@
+import 'package:app_tarefa/model/to_do.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ToDoAssignment {
@@ -37,5 +38,11 @@ class ToDoAssignment {
 
   toDoDelete({required String uid, required String collectionPath}) {
     firestore.collection(collectionPath).doc(uid).delete();
+  }
+
+  toDoDeleteAll({required collectionPath, required List<ToDo> listOfToDo}) {
+    for (var list in listOfToDo) {
+      firestore.collection(collectionPath).doc(list.uid).delete();
+    }
   }
 }

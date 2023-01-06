@@ -5,22 +5,24 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class DrawerPage extends StatefulWidget {
-  const DrawerPage({Key? key}) : super(key: key);
+  final void Function() callback;
+  const DrawerPage({
+    Key? key,
+    required this.callback,
+  }) : super(key: key);
 
   @override
   State<DrawerPage> createState() => _DrawerPageState();
 }
 
 class _DrawerPageState extends State<DrawerPage> {
-  late final FirebaseAuth _firebaseAuth;
+  void Function() get metodListOfTodo => widget.callback;
   late final User? user;
-  //corrigir isso
   late final RepositoryLoginFireBaseAuth _repositoryLoginFireBaseAuth;
   @override
   void initState() {
-    _firebaseAuth = FirebaseAuth.instance;
-    user = _firebaseAuth.currentUser;
     _repositoryLoginFireBaseAuth = RepositoryLoginFireBaseAuth();
+    user = _repositoryLoginFireBaseAuth.hasUser();
     super.initState();
   }
 
@@ -50,20 +52,19 @@ class _DrawerPageState extends State<DrawerPage> {
             ),
             decoration: const BoxDecoration(color: Colors.white12),
           ),
-          /*  const ListTile(
-            trailing: Icon(Icons.arrow_forward),
-            title: Text('Sair'),
-            leading: Icon(Icons.logout),
-          ),
-          const ListTile(
-            trailing: Icon(Icons.arrow_forward),
-            title: Text('Sair'),
-            leading: Icon(Icons.logout),
-          ), */
           ListTile(
+            leading: const Icon(Icons.delete_forever_outlined),
+            title: const Text('Apagar tudo'),
             trailing: const Icon(Icons.arrow_forward),
-            title: const Text('Sair'),
+            onTap: () {
+              metodListOfTodo();
+              Navigator.pop(context);
+            },
+          ),
+          ListTile(
             leading: const Icon(Icons.logout),
+            title: const Text('Sair'),
+            trailing: const Icon(Icons.arrow_forward),
             onTap: () {
               _repositoryLoginFireBaseAuth.dispose().then((value) {
                 Navigator.of(context).pushReplacementNamed(MyApp.pagehome);
