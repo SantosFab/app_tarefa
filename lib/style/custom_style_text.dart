@@ -7,4 +7,7 @@ class CustomStyleText {
     color: CustomStyleColors.whiter,
     decoration: TextDecoration.none,
   );
+  static const TextStyle textTaskIsEmpty = TextStyle(
+    fontSize: 20,
+  );
 }
