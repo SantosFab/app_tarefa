@@ -6,7 +6,7 @@ class ReposirotyToDoAssignment {
   ReposirotyToDoAssignment({required this.collectionPath});
 
   final ToDoAssignment _toDoAssignment = ToDoAssignment();
-  void createNewassignment({
+  void createNewAssignment({
     required String assignment,
     required DateTime time,
     bool conclusion = false,

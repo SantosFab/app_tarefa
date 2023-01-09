@@ -5,4 +5,5 @@ class CustomStyleColors {
   static const whiter54 = Colors.white54;
   static const blue = Colors.blue;
   static const grey = Colors.grey;
+  static const red = Colors.red;
 }

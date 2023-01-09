@@ -35,56 +35,64 @@ Future showdialogCreateUser(
   TextEditingController? controllerCreateNewUserPassWord,
   void Function()? onPressedOfCreate,
   void Function()? onPressedOfCancel,
+  Key? key,
 }) {
   return _baseShowDialog(
+    height: 350,
     context,
-    widget: Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        const Text(
-          'Para realizar o cadastro, preenchar, logo abaixo, o seu email e senha.',
-          textAlign: TextAlign.center,
-          style: CustomStyleText.textCreateUser,
-        ),
-        Material(
-          child: BoxTextFrom(
-            label: 'Nome e Sobrenome',
-            hintText: 'José Santos',
-            textInputType: TextInputType.name,
-            controller: controllerCreateNewUserName,
+    widget: Form(
+      key: key,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          const Text(
+            'Para realizar o cadastro, preenchar, logo abaixo, o seu email e senha.',
+            textAlign: TextAlign.center,
+            style: CustomStyleText.textCreateUser,
           ),
-        ),
-        Material(
-          child: BoxTextFrom(
-            label: 'Digite seu e-mail',
-            hintText: 'Ex: exemplo@exemplo.com',
-            textInputType: TextInputType.emailAddress,
-            controller: controllerCreateNewUserEmail,
-          ),
-        ),
-        Material(
-          child: BoxTextFrom(
-            label: 'Crie uma senha',
-            obscureText: true,
-            textInputType: TextInputType.emailAddress,
-            controller: controllerCreateNewUserPassWord,
-          ),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            TextButton(
-              onPressed: onPressedOfCreate,
-              child: const Text('Cadastrar'),
+          Material(
+            child: BoxTextFrom(
+              label: 'Digite primeiro e segundo nome',
+              hintText: 'José Santos',
+              textInputType: TextInputType.name,
+              controller: controllerCreateNewUserName,
+              validatorOfType: WhatValidator.name,
             ),
-            TextButton(
-              onPressed: onPressedOfCancel,
-              child: const Text('Cancelar'),
+          ),
+          Material(
+            child: BoxTextFrom(
+              label: 'Digite seu e-mail',
+              hintText: 'Ex: exemplo@exemplo.com',
+              textInputType: TextInputType.emailAddress,
+              controller: controllerCreateNewUserEmail,
+              validatorOfType: WhatValidator.email,
             ),
-          ],
-        )
-      ],
+          ),
+          Material(
+            child: BoxTextFrom(
+              label: 'Crie uma senha',
+              obscureText: true,
+              textInputType: TextInputType.emailAddress,
+              controller: controllerCreateNewUserPassWord,
+              validatorOfType: WhatValidator.passaWord,
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              TextButton(
+                onPressed: onPressedOfCreate,
+                child: const Text('Cadastrar'),
+              ),
+              TextButton(
+                onPressed: onPressedOfCancel,
+                child: const Text('Cancelar'),
+              ),
+            ],
+          )
+        ],
+      ),
     ),
   );
 }
@@ -93,6 +101,7 @@ showDialogAddNewTodo(
   context, {
   TextEditingController? controller,
   void Function()? funcaoFloatAdd,
+  Key? key,
 }) {
   return _baseShowDialog(
     context,
@@ -103,10 +112,14 @@ showDialogAddNewTodo(
       children: [
         Expanded(
           child: Material(
-            child: BoxTextFrom(
-              label: 'Nova Tarefas',
-              hintText: 'Por favor, digite a nova tarefa',
-              controller: controller,
+            child: Form(
+              key: key,
+              child: BoxTextFrom(
+                label: 'Nova Tarefas',
+                hintText: 'Por favor, digite a nova tarefa',
+                controller: controller,
+                validatorOfType: WhatValidator.task,
+              ),
             ),
           ),
         ),

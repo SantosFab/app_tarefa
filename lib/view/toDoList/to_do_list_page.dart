@@ -18,21 +18,28 @@ class ToDoListPage extends StatefulWidget {
 }
 
 class _ToDoListPageState extends State<ToDoListPage> {
-  late final TextEditingController _controllerAlterToDo;
-  late final TextEditingController _controllerCreateTodo;
   late final ReposirotyToDoAssignment _repositorytoDoAssignment;
   late final RepositoryLoginFireBaseAuth _repositoryloginFireBaseAuth;
+
+  late final TextEditingController _controllerAlterToDo;
+  late final TextEditingController _controllerCreateTodo;
+
   late List<ToDo> _list;
+
+  late final GlobalKey<FormState> _keyOfTask;
 
   @override
   void initState() {
     super.initState();
-    _controllerAlterToDo = TextEditingController();
-    _controllerCreateTodo = TextEditingController(text: 'Tarefas');
     _repositoryloginFireBaseAuth = RepositoryLoginFireBaseAuth();
     _repositorytoDoAssignment = ReposirotyToDoAssignment(
       collectionPath: _repositoryloginFireBaseAuth.idUser(),
     );
+
+    _controllerAlterToDo = TextEditingController();
+    _controllerCreateTodo = TextEditingController();
+
+    _keyOfTask = GlobalKey<FormState>();
   }
 
   @override
@@ -136,9 +143,15 @@ class _ToDoListPageState extends State<ToDoListPage> {
         backgroundColor: CustomStyleColors.whiter,
         onPressed: () => showDialogAddNewTodo(
           context,
+          key: _keyOfTask,
           controller: _controllerCreateTodo,
           funcaoFloatAdd: () {
-            _repositorytoDoAssignment.createNewassignment(
+            if (_keyOfTask.currentState != null &&
+                !_keyOfTask.currentState!.validate()) {
+              return;
+            }
+
+            _repositorytoDoAssignment.createNewAssignment(
               assignment: _controllerCreateTodo.text,
               time: DateTime.now(),
             );
@@ -160,7 +173,7 @@ class _ToDoListPageState extends State<ToDoListPage> {
         action: SnackBarAction(
           label: 'Desfazer',
           onPressed: () {
-            _repositorytoDoAssignment.createNewassignment(
+            _repositorytoDoAssignment.createNewAssignment(
               assignment: todo.task,
               time: todo.timeSaveIsDateTime,
               conclusion: todo.conclused,
